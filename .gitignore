@@ -1,0 +1,29 @@
+# System
+.DS_Store
+Thumbs.db
+
+# Node
+node_modules/
+frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# PHP / Laravel
+vendor/
+backend/vendor/
+backend/.env
+backend/storage/*.key
+backend/public/storage
+backend/storage/framework/cache/data/*
+backend/storage/framework/sessions/*
+backend/storage/framework/testing/*
+backend/storage/framework/views/*
+backend/storage/logs/*
+
+# IDE
+.idea/
+.vscode/
+
+# Project
+*.log
+*.sql

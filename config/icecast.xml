@@ -1,0 +1,61 @@
+<icecast>
+    <location>Earth</location>
+    <admin>admin@localhost</admin>
+
+    <limits>
+        <clients>1000</clients> <!-- Max listeners -->
+        <sources>2</sources>
+        <queue-size>524288</queue-size> <!-- 512KB buffer -->
+        <client-timeout>30</client-timeout>
+        <header-timeout>15</header-timeout>
+        <source-timeout>10</source-timeout>
+        <burst-on-connect>1</burst-on-connect>
+        <burst-size>65535</burst-size> <!-- Fast start for listeners -->
+    </limits>
+
+    <authentication>
+        <!-- Admin interface login -->
+        <source-password>hackme_source</source-password>
+        <relay-password>hackme_relay</relay-password>
+        <admin-user>admin</admin-user>
+        <admin-password>hackme_admin</admin-password>
+    </authentication>
+
+    <hostname>localhost</hostname>
+
+    <listen-socket>
+        <port>8000</port>
+    </listen-socket>
+
+    <mount>
+        <mount-name>/radio</mount-name>
+        <username>source</username>
+        <password>hackme_source</password>
+        <max-listeners>1000</max-listeners>
+        <burst-size>65536</burst-size>
+        <!-- Fallback to a silence file or backup stream if source disconnects -->
+        <!-- <fallback-mount>/silence</fallback-mount> -->
+        <!-- <fallback-override>1</fallback-override> -->
+        <public>0</public>
+        <stream-name>My Live Radio</stream-name>
+        <stream-description>Best hits all day</stream-description>
+        <stream-url>http://localhost:8000/radio</stream-url>
+        <genre>Variety</genre>
+    </mount>
+
+    <fileserve>1</fileserve>
+    <paths>
+        <!-- Paths based on standard Linux Icecast install -->
+        <basedir>/usr/share/icecast2</basedir>
+        <logdir>/var/log/icecast2</logdir>
+        <webroot>/usr/share/icecast2/web</webroot>
+        <adminroot>/usr/share/icecast2/admin</adminroot>
+        <alias source="/" destination="/status.xsl"/>
+    </paths>
+
+    <logging>
+        <accesslog>access.log</accesslog>
+        <errorlog>error.log</errorlog>
+        <loglevel>3</loglevel> <!-- 4 Debug, 3 Info, 2 Warn, 1 Error -->
+    </logging>
+</icecast>
