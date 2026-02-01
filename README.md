@@ -2,6 +2,8 @@
 
 A production-ready, scheduling-first live radio system built with **Laravel** (Backend), **React** (Frontend), **Icecast** (Streaming), and **FFmpeg**.
 
+![UI Preview](https://via.placeholder.com/800x400?text=ECHO+WAVE+RADIO+UI)
+
 ## Overview
 This system enables a 24/7 radio broadcast where all listeners hear the same audio simultaneously. It uses a server-side scheduler to strictly manage what tracks play at specific times, ensuring a unified "broadcast" experience rather than on-demand playback.
 
@@ -9,12 +11,16 @@ This system enables a 24/7 radio broadcast where all listeners hear the same aud
 -   **Audio Broadcasting**: Uses Icecast + FFmpeg for continuous streaming.
 -   **Strict Scheduling**: Laravel Scheduler determines the playlist based on time-of-day.
 -   **Live Metadata**: Real-time "Now Playing" updates via API polling.
--   **Gapless-style Playback**: Backend manages track offsets for late joiners.
+-   **Modern UI**: "Cyberpunk/Glassmorphism" aesthetic with:
+    -   Real-time audio visualizer animations.
+    -   Vinyl record rotation effects.
+    -   Vertical timeline schedule view.
+    -   Responsive mobile-ready layout.
 -   **Auto-Recovery**: Supervisor keeps the stream alive and restarts it on failure.
 
 ## Tech Stack
 -   **Backend**: Laravel 10+ (PHP 8.2)
--   **Frontend**: React.js (Vite/CRA)
+-   **Frontend**: React.js (Vite/CRA), CSS3 Variables, Glassmorphism
 -   **Streaming**: Icecast 2.4, FFmpeg 6.0
 -   **Database**: MySQL / MariaDB
 -   **OS**: Linux (Ubuntu/Debian recommended)
@@ -27,7 +33,7 @@ This system enables a 24/7 radio broadcast where all listeners hear the same aud
 -   `/docs` - Architecture validation and failure handling docs.
 
 ## Quick Start
-See [walkthrough.md](walkthrough.md) (or the generated walkthrough artifact) for detailed deployment instructions.
+See [walkthrough.md](walkthrough.md) for detailed deployment instructions.
 
 ### 1. Requirements
 Ensure `ffmpeg`, `icecast2`, `php`, `composer`, `node`, and `supervisor` are installed.
