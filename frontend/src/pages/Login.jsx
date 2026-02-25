@@ -1,7 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { LogIn } from 'lucide-react';
+import { LogIn, Mail, Lock, Loader2, ArrowRight } from 'lucide-react';
 
 const Login = () => {
     const { login } = useContext(AuthContext);
@@ -9,95 +9,89 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState(null);
+    const [isLoading, setIsLoading] = useState(false);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setIsLoading(true);
+        setError(null);
         try {
             await login(email, password);
             navigate('/');
         } catch (err) {
-            setError(err.response?.data?.message || 'Login failed');
+            setError(err.response?.data?.message || 'Invalid email or password');
+            setIsLoading(false);
         }
     };
 
     return (
-        <div className="auth-container">
-            <div className="glass-panel auth-panel">
+        <div className="auth-wrapper">
+            <div className="auth-ambient-glow"></div>
+            <div className="glass-panel auth-card">
                 <div className="auth-header">
-                    <LogIn size={40} className="auth-icon" />
-                    <h2>Welcome Back</h2>
-                    <p>Login to your account or <Link to="/register">register</Link></p>
+                    <div className="auth-icon-wrapper">
+                        <LogIn size={32} className="auth-icon-main" />
+                    </div>
+                    <h2 className="auth-title">Welcome Back</h2>
+                    <p className="auth-subtitle">Enter your credentials to access the studio</p>
                 </div>
-                {error && <div className="error-message">{error}</div>}
-                <form onSubmit={handleSubmit}>
-                    <div className="form-group">
-                        <label>Email</label>
-                        <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+
+                {error && (
+                    <div className="auth-alert error-alert animate-fade-in">
+                        <span>{error}</span>
                     </div>
-                    <div className="form-group">
-                        <label>Password</label>
-                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                )}
+
+                <form onSubmit={handleSubmit} className="auth-form">
+                    <div className="input-group">
+                        <label className="input-label">Email Address</label>
+                        <div className="input-wrapper">
+                            <Mail size={18} className="input-icon" />
+                            <input
+                                type="email"
+                                className="auth-input"
+                                placeholder="dj@echowave.com"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                required
+                                disabled={isLoading}
+                            />
+                        </div>
                     </div>
-                    <button type="submit" className="glass-btn primary-btn btn-full">Login</button>
+
+                    <div className="input-group">
+                        <label className="input-label">Password</label>
+                        <div className="input-wrapper">
+                            <Lock size={18} className="input-icon" />
+                            <input
+                                type="password"
+                                className="auth-input"
+                                placeholder="••••••••"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                required
+                                disabled={isLoading}
+                            />
+                        </div>
+                    </div>
+
+                    <button
+                        type="submit"
+                        className={`auth-submit-btn ${isLoading ? 'btn-loading' : ''}`}
+                        disabled={isLoading}
+                    >
+                        {isLoading ? (
+                            <><Loader2 size={20} className="spin-icon" /> Authenticating...</>
+                        ) : (
+                            <>Login to Dashboard <ArrowRight size={18} /></>
+                        )}
+                    </button>
+
+                    <div className="auth-footer">
+                        <p>Don't have an account? <Link to="/register" className="auth-link">Create one now</Link></p>
+                    </div>
                 </form>
             </div>
-            <style>{`
-                .auth-container {
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    min-height: 70vh;
-                }
-                .auth-panel {
-                    padding: 3rem;
-                    width: 100%;
-                    max-width: 450px;
-                }
-                .auth-header {
-                    text-align: center;
-                    margin-bottom: 2rem;
-                }
-                .auth-icon {
-                    color: var(--color-accent);
-                    margin-bottom: 1rem;
-                }
-                .error-message {
-                    background: rgba(255, 0, 85, 0.2);
-                    border: 1px solid #ff0055;
-                    border-radius: 8px;
-                    padding: 10px;
-                    margin-bottom: 1rem;
-                    text-align: center;
-                    color: white;
-                }
-                .form-group {
-                    margin-bottom: 1.5rem;
-                }
-                .form-group label {
-                    display: block;
-                    margin-bottom: 0.5rem;
-                    font-size: 0.9rem;
-                    color: rgba(255, 255, 255, 0.7);
-                }
-                .form-group input {
-                    width: 100%;
-                    padding: 12px;
-                    background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid var(--glass-border);
-                    border-radius: 8px;
-                    color: white;
-                    font-family: var(--font-main);
-                }
-                .form-group input:focus {
-                    outline: none;
-                    border-color: var(--color-accent);
-                }
-                .btn-full {
-                    width: 100%;
-                    justify-content: center;
-                    margin-top: 1rem;
-                }
-            `}</style>
         </div>
     );
 };
