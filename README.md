@@ -11,7 +11,9 @@ This system enables a 24/7 radio broadcast where all listeners hear the same aud
 -   **Audio Broadcasting**: Uses Icecast + FFmpeg for continuous streaming.
 -   **Strict Scheduling**: Laravel Scheduler determines the playlist based on time-of-day.
 -   **Live Metadata**: Real-time "Now Playing" updates via API polling.
+-   **Authentication & Roles**: Secure Login and Registration with role-based access control (Admin/User).
 -   **Modern UI**: "Cyberpunk/Glassmorphism" aesthetic with:
+    -   Premium Glassmorphism Login and Registration pages.
     -   Real-time audio visualizer animations.
     -   Vinyl record rotation effects.
     -   Vertical timeline schedule view.
@@ -43,8 +45,9 @@ Ensure `ffmpeg`, `icecast2`, `php`, `composer`, `node`, and `supervisor` are ins
 cd backend
 composer install
 cp .env.example .env
-php artisan migrate
+# Configure your MySQL database credentials in the .env file
 php artisan key:generate
+php artisan migrate
 ```
 
 ### 3. Run Frontend
